@@ -1,10 +1,10 @@
-name: News-Bot
+name: Mega-News-Bot
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: # Это создаст ту самую кнопку запуска
 
 jobs:
-  run-bot:
+  run:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -12,7 +12,7 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install feedparser requests urllib3
-      - name: Start
+      - name: Run
         env:
           GIGACHAT_CREDENTIALS: ${{ secrets.GIGACHAT_CREDENTIALS }}
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
