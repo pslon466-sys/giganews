@@ -5,7 +5,7 @@ import feedparser
 import urllib3
 from pathlib import Path
 
-# Отключаем предупреждения о сертификатах (для GigaChat это нужно)
+# Отключаем предупреждения о сертификатах
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 RSS_FEED_URL = os.getenv("RSS_FEED_URL", "https://habr.com/ru/rss/articles/")
@@ -47,9 +47,8 @@ def main():
                 summary = summarize(f"{entry.title}\n\n{entry.get('summary', '')}")
                 msg = f"<b>{entry.title}</b>\n\n{summary}\n\n🔗 {entry.link}"
                 
-                # Отправка в ТГ
                 requests.post(f"https://api.telegram.org/bot{os.getenv('TELEGRAM_TOKEN')}/sendMessage", 
-                              json={"chat_id": os.getenv("TELEGRAM_CHAT_ID"), "text": msg, "parse_mode": "HTML"})
+                             json={"chat_id": os.getenv("TELEGRAM_CHAT_ID"), "text": msg, "parse_mode": "HTML"})
                 
                 conn.execute("INSERT INTO sent VALUES (?)", (entry.link,))
                 conn.commit()
