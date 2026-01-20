@@ -37,3 +37,4 @@ jobs:
           git add news.db || echo "No DB yet"
           git commit -m "update db" || echo "No changes"
           git push
+          
