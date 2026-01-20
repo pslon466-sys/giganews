@@ -2,8 +2,8 @@ name: News Summarizer
 
 on:
   schedule:
-    - cron: "0 * * * *"
-  workflow_dispatch:
+    - cron: "0 * * * *" # Запуск каждый час
+  workflow_dispatch: # Позволяет запускать вручную кнопкой
 
 permissions:
   contents: write
@@ -21,7 +21,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install feedparser requests
+        run: pip install feedparser requests urllib3
 
       - name: Run bot
         env:
@@ -37,4 +37,3 @@ jobs:
           git add news.db || echo "No DB yet"
           git commit -m "update db" || echo "No changes"
           git push
-          
